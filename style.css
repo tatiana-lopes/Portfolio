@@ -2,11 +2,11 @@
 *{
   box-sizing: border-box;
 }
-html,body{
+html, body{
   margin:0;
   padding:0;
   height:100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
   color:#222;
 }
 
@@ -58,6 +58,12 @@ html,body{
 }
 
 /* HERO / CARD */
+.hero{
+  position:relative;
+  overflow:hidden;
+  background:#0f0f12; /* near-black, softer than pure black */
+}
+
 .hero-card{
   /* calculate remaining viewport height dynamically based on --nav-height */
   min-height: calc(100vh - var(--nav-height));
@@ -65,12 +71,18 @@ html,body{
   align-items:center;
   justify-content:center;
   padding:40px;
-  background: #ffffff;
+  position:relative;
+  z-index:2;
+  background:transparent;
 }
+
 .hero-card h1{
+  font-family: 'Libre Baskerville', serif;
   font-size:48px;
   margin:0;
   text-align:center;
+  color:#eaeaea;
+  letter-spacing:-0.5px;
 }
 
 /* Responsive tweaks */
@@ -78,4 +90,13 @@ html,body{
   .nav-center{gap:18px;font-size:16px}
   .hero-card h1{font-size:32px}
   .contact-btn{padding:10px 14px;font-size:14px}
+}
+
+#particle-canvas{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:1;
 }
