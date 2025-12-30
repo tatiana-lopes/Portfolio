@@ -19,12 +19,13 @@ function initHeroCanvas() {
     const mouse = {
         x: null,
         y: null,
-        radius: 150
+        radius: 120
     };
 
     function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
+        const rect = canvas.getBoundingClientRect();
+        width = canvas.width = rect.width;
+        height = canvas.height = rect.height;
     }
     window.addEventListener('resize', resize);
     resize();
@@ -118,9 +119,9 @@ function initHeroCanvas() {
             const p = new Particle();
 
             const worldX =
-            (mouse.x - width / 2) * (spawnZ / FOV);
+                (mouse.x - width / 2) * (spawnZ / FOV);
             const worldY =
-            (mouse.y - height / 2) * (spawnZ / FOV);
+                (mouse.y - height / 2) * (spawnZ / FOV);
 
             p.x = worldX + (Math.random() - 0.5) * 40;
             p.y = worldY + (Math.random() - 0.5) * 40;
@@ -150,9 +151,9 @@ function initHeroCanvas() {
             p.update();
             p.project();
             //ignore apply mouse if I click to spawn.
-             if (!isPressing) {
+            if (!isPressing) {
                 p.applyMouse(mouse.x, mouse.y);
-                }
+            }
             p.draw();
 
             if (p.isOutOfBounds()) {
@@ -164,11 +165,11 @@ function initHeroCanvas() {
     }
 
     window.addEventListener("mousedown", () => {
-    isPressing = true;
+        isPressing = true;
     });
 
     window.addEventListener("mouseup", () => {
-    isPressing = false;
+        isPressing = false;
     });
 
     window.addEventListener('mousemove', e => {
@@ -204,27 +205,15 @@ function initHeroCanvas() {
     animate();
 }
 
-// ==========================
-// NAV INTERACTIONS (placeholder)
-// ==========================
-function initNav() {
-    // future nav logic
-}
 
-// ==========================
-// OTHER UI INTERACTIONS (placeholder)
-// ==========================
-function initUI() {
-    // future UI logic
-}
 
 // ==========================
 // INIT
 // ==========================
 document.addEventListener('DOMContentLoaded', () => {
     initHeroCanvas();
-    // initNav();
-    // initUI();
+
+ 
 });
 
 // TODO : Add scroll-based parallax to particles

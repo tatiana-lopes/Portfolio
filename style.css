@@ -1,138 +1,217 @@
 /* Basic reset */
-*{
-  box-sizing: border-box;
+* {
+    box-sizing: border-box;
 }
-html, body{
-  margin:0;
-  padding:0;
-  height:100%;
-  font-family: 'Comfortaa', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-  color:#222;
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Manrope', 'Comfortaa', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    color: #222;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Comfortaa';
 }
 
 /* NAVBAR */
-.site-nav{
-  height: var(--nav-height);
-  /*background-color:#f5efe0;*/ /* cream */
-  display:block;
-   position: relative; /* enables z-index */
-   z-index: 4;
-background: rgba(12, 7, 32, 0.08);
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(5px);
--webkit-backdrop-filter: blur(5px);
+.site-nav {
+    height: var(--nav-height);
+    display: block;
+    /* make navbar fixed so it remains visible while scrolling */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(12, 7, 32, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
-:root{
-  /* change this value to adjust the navbar height; hero will adapt automatically */
-  --nav-height: 60px;
-  --hero-height: 70vh;
-  --hero-color: rgb(12, 7, 32);
-}
-.nav-inner{
-  max-width:1200px;
-  height:100%;
-  margin:0 auto;
-  padding:0 20px;
-  position:relative;
-  display:flex;
-  align-items:center;
-}
-.nav-center{
-  list-style:none;
-  margin:0;
-  padding:0;
-  display:flex;
-  gap:32px;
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-}
-.nav-center a{
-  text-decoration:none;
-  color:#fff;
-  font-weight:400;
-  font-size:16px;
+:root {
+    /* change this value to adjust the navbar height; hero will adapt automatically */
+    --nav-height: 60px;
+    --hero-height: 80vh;
+    --hero-color: #0c0720;
 }
 
-.contact-btn{
-  margin-left:auto; /* keeps it on the right */
-  border: 2px solid rgba(199, 199, 199, 0.5);
-  border-width: 1px;
+.nav-inner {
+   
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
 
-  color:#fff;
-  text-decoration:none;
-  padding:10px 20px;
-  border-radius:22px; /* rounded rectangle */
-  font-weight:400;
-  font-size:12px;
+.nav-center {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 32px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-center a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.contact-btn {
+    margin-left: auto;
+    /* keeps it on the right */
+    border: 2px solid rgba(199, 199, 199, 0.5);
+    border-width: 1px;
+    color: #e6e6e6;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 22px;
+    /* rounded rectangle */
+    font-weight: 400;
+    font-size: 12px;
 }
 
 /* HERO / CARD */
-.hero{
- /*height 70% of the window*/
-  height: 70vh;
-  position:relative;
-  overflow:hidden;
-  background: var(--hero-color) /* near-black, softer than pure black */
+.hero {
+    /*height 80% of the window*/
+    height: var(--hero-height);
+    position: relative;
+    overflow: hidden;
+    background: var(--hero-color)
+        /* near-black, softer than pure black */
 }
 
-.hero-card{
-  /* calculate remaining viewport height dynamically based on --nav-height if needed */
-  min-height: calc(var(--hero-height) - var(--nav-height));
-  display:flex;
-  flex-direction:column; /* stack children vertically */
-  align-items:center;
-  justify-content:center;
- 
-  padding:40px;
-  position:relative;
-  z-index:2;
-  background:transparent;
+/* push hero content down so it's not covered by the fixed navbar */
+.hero {
+    padding-top: var(--nav-height);
 }
 
-.hero-text{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:20px;
+.hero-card {
+    /* calculate remaining viewport height dynamically based on --nav-height if needed */
+    min-height: calc(var(--hero-height) - var(--nav-height));
+    display: flex;
+    flex-direction: column;
+    /* stack children vertically */
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    position: relative;
+    z-index: 2;
+    background: transparent;
 }
 
-.hero-text h2{
-
-  font-size:40px;
-  margin:0;
-  text-align:center;
-  color:#eaeaea;
-  letter-spacing:0.5px;
+.hero-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
+
+
 
 /* secondary block inside hero (the extra div) */
-.hero-card > div{
-  max-width:900px; /* keep long text readable */
+.hero-card>div {
+    max-width: 900px;
+    /* keep long text readable */
 }
-.hero-text h1{
-  font-size:30px; /* smaller subheading */
-  margin:0;
-  font-weight:300;
-  text-align:center;
-  color:#e6e6e6;
-  line-height:1.4;
+
+.hero-text h1 {
+    font-size: 40px;
+    /* smaller subheading */
+    margin: 0;
+    font-weight: 600;
+    text-align: center;
+    color: #e6e6e6;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+}
+
+.hero-text h2 {
+    font-size: 30px;
+    font-weight: 300;
+    margin: 0;
+    text-align: center;
+    color: #eaeaea;
+    line-height: 1.4;
+}
+
+.projects-section h2 {
+   font-family: 'Manrope';
+    font-size: 40px;
+    font-weight: 300;
+    margin: 120px 100px;
+    text-align: left;
+    color: #0c0720;
+    max-width: 800px;  
+  
+    line-height: 1.4;
+    letter-spacing: 0.5px;
 }
 
 /* Responsive tweaks */
-@media (max-width:600px){
-  .nav-center{gap:18px;font-size:16px}
-  .hero-card h1{font-size:32px}
-  .contact-btn{padding:10px 14px;font-size:14px}
+@media (max-width:600px) {
+    .nav-center {
+        gap: 18px;
+        font-size: 16px
+    }
+
+    .contact-btn {
+        padding: 10px 14px;
+        font-size: 14px
+    }
 }
 
-#particle-canvas{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:1;
+#particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
+
+.projects-section {
+
+    margin: 20px auto;
+   
+}
+
+.projects-title  {
+    text-align: center;
+    font-size: 70px;
+    margin-bottom: 40px;
+    color: #0c0720;
+}
+
+.project-container {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.project-card {
+    background: #050505;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    height: 500px;
+    padding: 20px;
+    width: 600px;
+    margin: 0 auto;
+}
