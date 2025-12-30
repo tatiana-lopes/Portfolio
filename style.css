@@ -13,12 +13,20 @@ html, body{
 /* NAVBAR */
 .site-nav{
   height: var(--nav-height);
-  background-color:#f5efe0; /* cream */
+  /*background-color:#f5efe0;*/ /* cream */
   display:block;
+   position: relative; /* enables z-index */
+   z-index: 4;
+background: rgba(12, 7, 32, 0.08);
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
 }
+
 :root{
   /* change this value to adjust the navbar height; hero will adapt automatically */
-  --nav-height: 100px;
+  --nav-height: 60px;
+  --hero-color: rgb(12, 7, 32);
 }
 .nav-inner{
   max-width:1200px;
@@ -41,27 +49,29 @@ html, body{
 }
 .nav-center a{
   text-decoration:none;
-  color:#2b2b2b;
-  font-weight:600;
-  font-size:18px;
+  color:#fff;
+  font-weight:400;
+  font-size:16px;
 }
 
 .contact-btn{
   margin-left:auto; /* keeps it on the right */
-  background:#000;
+  border: 2px solid rgba(199, 199, 199, 0.5);
+  border-width: 1px;
+
   color:#fff;
   text-decoration:none;
-  padding:12px 20px;
-  border-radius:26px; /* rounded rectangle */
-  font-weight:700;
-  font-size:16px;
+  padding:10px 20px;
+  border-radius:22px; /* rounded rectangle */
+  font-weight:400;
+  font-size:12px;
 }
 
 /* HERO / CARD */
 .hero{
   position:relative;
   overflow:hidden;
-  background:#0f0f12; /* near-black, softer than pure black */
+  background: var(--hero-color) /* near-black, softer than pure black */
 }
 
 .hero-card{
