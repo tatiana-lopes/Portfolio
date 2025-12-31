@@ -1,3 +1,22 @@
+gsap.registerPlugin(ScrollTrigger);
+const projectCards = gsap.utils.toArray('#horizontal .project-card');
+
+gsap.to(projectCards, {
+    xPercent: -100 * (projectCards.length - 1),
+   scrollTrigger: {
+       trigger: '#horizontal',
+       scrub: true,
+       pin: true,
+       anticipatePin: 1,
+       //add extra space to scroll to the end of the last card
+       end: () => "+=" + document.querySelector('#horizontal').offsetWidth ,
+     
+   },
+    ease: "none",
+});
+
+
+
 // ==========================
 // HERO CANVAS BACKGROUND
 // ==========================
@@ -144,13 +163,17 @@ function initHeroCanvas() {
         }
     }
 
+    // Animation control: requestAnimationFrame id so we can cancel when not needed
+    let rafId = null;
+    let canvasVisible = true; // assume visible initially
+
     function animate() {
         ctx.clearRect(0, 0, width, height);
 
         particles.forEach(p => {
             p.update();
             p.project();
-            //ignore apply mouse if I click to spawn.
+            // ignore apply mouse if I click to spawn.
             if (!isPressing) {
                 p.applyMouse(mouse.x, mouse.y);
             }
@@ -161,8 +184,47 @@ function initHeroCanvas() {
             }
         });
 
-        requestAnimationFrame(animate);
+        rafId = requestAnimationFrame(animate);
     }
+
+    function startAnimation() {
+        if (!rafId) {
+            rafId = requestAnimationFrame(animate);
+        }
+    }
+
+    function stopAnimation() {
+        if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+        }
+    }
+
+    // Pause when the canvas is not visible in the viewport (improves performance)
+    if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(entries => {
+            const e = entries[0];
+            if (e && e.isIntersecting) {
+                canvasVisible = true;
+                // only start if page is visible
+                if (document.visibilityState === 'visible') startAnimation();
+            } else {
+                canvasVisible = false;
+                stopAnimation();
+            }
+        }, { threshold: 0.05 });
+
+        io.observe(canvas);
+    }
+
+    // Also respect page visibility (tab hidden)
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+            stopAnimation();
+        } else if (document.visibilityState === 'visible' && canvasVisible) {
+            startAnimation();
+        }
+    });
 
     window.addEventListener("mousedown", () => {
         isPressing = true;

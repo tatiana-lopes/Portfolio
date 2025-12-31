@@ -45,7 +45,7 @@ h6 {
 }
 
 .nav-inner {
-   
+
     height: 100%;
     margin: 0 auto;
     padding: 0 20px;
@@ -151,14 +151,13 @@ h6 {
 }
 
 .projects-section h2 {
-   font-family: 'Manrope';
+    font-family: 'Manrope';
     font-size: 40px;
     font-weight: 300;
-    margin: 120px 100px;
     text-align: left;
     color: #0c0720;
-    max-width: 800px;  
-  
+    max-width: 800px;
+
     line-height: 1.4;
     letter-spacing: 0.5px;
 }
@@ -185,33 +184,37 @@ h6 {
     z-index: 1;
 }
 
-
 .projects-section {
-
-    margin: 20px auto;
-   
+    margin: 120px 50px;
 }
 
-.projects-title  {
+
+#horizontal {
+    display: flex;
+    overflow-x: hidden;
+    gap: 50px;
+}
+
+.projects-title {
     text-align: center;
     font-size: 70px;
     margin-bottom: 40px;
     color: #0c0720;
 }
 
-.project-container {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
 .project-card {
     background: #050505;
-    border-radius: 12px;
+    border-radius: 30px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    height: 500px;
-    padding: 20px;
-    width: 600px;
-    margin: 0 auto;
+    height: 85vh;
+    width: 90vw;
+    margin: 100px 0px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    
+
 }
+
+
+
