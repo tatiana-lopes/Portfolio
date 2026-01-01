@@ -1,6 +1,8 @@
 /* Basic reset */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html,
@@ -212,9 +214,48 @@ h6 {
     flex-shrink: 0;
     display: grid;
     place-items: center;
-    
+}
 
+.project-card img {
+    width: 100%;
+    border-radius: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.gallery {
+   position: relative;
+   width: 50vw;
+   transform-style: preserve-3d;
+   transform: perspective(1500px) rotateX(0deg) rotateY(0deg);
+
+   /*animation: circular-rotate 18s linear infinite;*/
+   transition: 2s;
+}
+
+@keyframes circular-rotate {
+
+    to {
+        transform: perspective(1500px) rotateX(0deg) rotateY(360deg);
+    }
 }
 
 
+.gallery img {
+    position: absolute;
+    width: 100%;
+    /*transform: rotate3d(0,1,0, calc(var(--img_no) * 60deg)) translateZ(25rem);*/ 
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    cursor: pointer; 
+}
 
+.gallery img:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}

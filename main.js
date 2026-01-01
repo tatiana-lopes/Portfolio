@@ -3,15 +3,15 @@ const projectCards = gsap.utils.toArray('#horizontal .project-card');
 
 gsap.to(projectCards, {
     xPercent: -100 * (projectCards.length - 1),
-   scrollTrigger: {
-       trigger: '#horizontal',
-       scrub: true,
-       pin: true,
-       anticipatePin: 1,
-       //add extra space to scroll to the end of the last card
-       end: () => "+=" + document.querySelector('#horizontal').offsetWidth ,
-     
-   },
+    scrollTrigger: {
+        trigger: '#horizontal',
+        scrub: true,
+        pin: true,
+        anticipatePin: 1,
+        //add extra space to scroll to the end of the last card
+        end: () => "+=" + document.querySelector('#horizontal').offsetWidth,
+
+    },
     ease: "none",
 });
 
@@ -275,8 +275,18 @@ function initHeroCanvas() {
 document.addEventListener('DOMContentLoaded', () => {
     initHeroCanvas();
 
- 
+
 });
 
 // TODO : Add scroll-based parallax to particles
+const gallery = document.querySelector('.gallery');
+const galleryimages = document.querySelectorAll('.gallery img');
+const img_angle = 360 / gallery.children.length;
 
+galleryimages.forEach((img, i) => {
+
+    img.style.transform = `rotateX(0deg) rotateY(${(i + 1) * img_angle}deg) translateZ(${gallery.children.length * 6}rem)`;
+    img.onclick = () => {
+        gallery.style.transform = `perspective(1500px)  rotateX(-15deg) rotateY(-${(i + 1) * img_angle}deg)`;
+    }
+});
