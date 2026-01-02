@@ -282,12 +282,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+
 const gallery = document.querySelector('.gallery');
 const galleryimages = document.querySelectorAll('.gallery img');
 const img_angle = 360 / gallery.children.length;
 
-// Attach transition listeners to the gallery (transform is applied to the gallery, not the individual images)
+
 const projectBtn = document.querySelector('.projects-btn');
+// track which project is currently selected in the gallery
+let currentSelectedProject = null;
+
+
+// NOTE: auto-selection is performed AFTER we assign data-project on each
+// image (below). See the block after the galleryimages.forEach loop.
+
+// Attach transition listeners to the gallery (transform is applied to the gallery, not the individual images)
 if (gallery) {
     gallery.addEventListener('transitionstart', () => {
         if (projectBtn) projectBtn.style.visibility = 'hidden';
@@ -298,13 +307,103 @@ if (gallery) {
     });
 }
 
-// Redirect the projects button to projects.html when clicked
+// Redirect the projects button to projects.html when clicked.
+// If a project has been selected in the gallery, navigate to that anchor.
 if (projectBtn) {
     projectBtn.addEventListener('click', () => {
-        // adjust path if your projects page is in a different folder
-        window.location.href = 'projects.html';
+        // if a project was selected via gallery click, use its id as anchor
+        if (currentSelectedProject) {
+            window.location.href = `projects.html#${currentSelectedProject}`;
+        } else {
+            // fallback to the projects page root
+            window.location.href = 'projects.html';
+        }
     });
 }
+
+galleryimages.forEach((img, i) => {
+
+    // derive a stable project id for each image. Priority:
+    // 1) data-project attribute (if already present in HTML)
+    // 2) id attribute
+    // 3) alt text normalized
+    // 4) fallback to index-based id (project1, project2...)
+    const fallbackId = `project${i + 1}`;
+    const fromAlt = img.getAttribute('alt') ? img.getAttribute('alt').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-') : '';
+    const projectId = img.dataset.project || img.id || (fromAlt || fallbackId);
+    // store it on the element so other code can read it later
+    img.dataset.project = projectId;
+
+    // include a centering translate so images are centered in the .gallery before 3D transforms
+    img.style.transform = `translate(-50%,-30%) rotateX(0deg) rotateY(${(i + 1) * img_angle}deg) translateZ(${gallery.children.length * 6}vw)`;
+
+    img.onclick = (e) => {
+        // hide the projects button while the gallery is animating
+        const button = document.querySelector('.projects-btn');
+        if (button) button.style.visibility = 'hidden';
+
+        // rotate the gallery visually toward the clicked image
+        gallery.style.transform = `perspective(2000px)  rotateX(-5deg) rotateY(-${(i + 1) * img_angle}deg)`;
+
+        // record the selected project id so the View Project button can
+        // navigate to the correct anchor. Do not redirect immediately; the
+        // user will press the button to go to the project page.
+        currentSelectedProject = projectId;
+    }
+});
+
+// Auto-detect which gallery image is currently front-facing and use that
+// as the default selected project. This reads the computed transform on
+// the gallery (which may come from CSS or earlier scripts) and finds the
+// image whose assigned rotateY is closest to the viewer.
+function getGalleryRotationYDeg() {
+    if (!gallery) return 0;
+    const cs = getComputedStyle(gallery).transform;
+    if (!cs || cs === 'none') return 0;
+    try {
+        const m = new DOMMatrixReadOnly(cs);
+        // For a rotateY, m11 = cos(θ), m13 = sin(θ) -> θ = atan2(m13, m11)
+        const rad = Math.atan2(m.m13, m.m11);
+        return rad * 180 / Math.PI;
+    } catch (e) {
+        return 0;
+    }
+}
+
+function normalizeDeg(deg) {
+    let d = ((deg % 360) + 540) % 360 - 180; // map to (-180,180]
+    return d;
+}
+
+try {
+    if (galleryimages.length > 0 && gallery) {
+        const galleryRot = getGalleryRotationYDeg();
+        let bestIdx = 0;
+        let bestDiff = 360;
+        galleryimages.forEach((img, i) => {
+            const assigned = (i + 1) * img_angle; // same formula used for placement
+            // compute difference between assigned image angle and gallery rotation
+            const diff = normalizeDeg(assigned - galleryRot);
+            if (Math.abs(diff) < Math.abs(bestDiff)) {
+                bestDiff = diff;
+                bestIdx = i;
+            }
+        });
+
+        const frontImg = galleryimages[bestIdx];
+        // ensure dataset.project exists (we set it in the loop above)
+        const pid = frontImg && frontImg.dataset && frontImg.dataset.project ? frontImg.dataset.project : null;
+        if (pid) {
+            currentSelectedProject = pid;
+            // rotate gallery to align exactly to that image (keeps UI consistent)
+            gallery.style.transform = `perspective(2000px)  rotateX(-5deg) rotateY(-${(bestIdx + 1) * img_angle}deg)`;
+            if (projectBtn) projectBtn.style.visibility = 'visible';
+        }
+    }
+} catch (err) {
+    console.warn('Failed to auto-detect front gallery image', err);
+}
+
 
 const line = document.getElementById('line');
 function updateScrollProgress() {
@@ -319,18 +418,3 @@ function updateScrollProgress() {
 window.addEventListener('scroll', updateScrollProgress);
 window.addEventListener('resize', updateScrollProgress);
 updateScrollProgress();
-
-
-
-galleryimages.forEach((img, i) => {
-
-    // include a centering translate so images are centered in the .gallery before 3D transforms
-    img.style.transform = `translate(-50%,-30%) rotateX(0deg) rotateY(${(i + 1) * img_angle}deg) translateZ(${gallery.children.length * 6}vw)`;
-
-    img.onclick = () => {
-        // hide the projects button while the gallery is animating
-        const button = document.querySelector('.projects-btn');
-        if (button) button.style.visibility = 'hidden';
-        gallery.style.transform = `perspective(2000px)  rotateX(-5deg) rotateY(-${(i + 1) * img_angle}deg)`;
-    }
-});

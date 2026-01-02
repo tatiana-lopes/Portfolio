@@ -326,8 +326,11 @@ h6 {
 .background-content {
     position: relative;
     /* allow content to size naturally so sections below the hero are scrollable */
-    min-height: auto;
-    background-image: url("/images/static-background.png");
+    /* give the background area some height so the image can be seen
+       (was 'auto' which left the empty div with zero height) */
+    min-height: 60vh;
+    /* use a relative path so it resolves correctly whether opened from file:// or a server */
+    background-image: url("images/static-background.png");
     background-repeat: repeat;
     background-size: cover;
     width: 100vw;
