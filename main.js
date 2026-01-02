@@ -1,3 +1,4 @@
+/*
 gsap.registerPlugin(ScrollTrigger);
 const projectCards = gsap.utils.toArray('#horizontal .project-card');
 
@@ -9,11 +10,11 @@ gsap.to(projectCards, {
         pin: true,
         anticipatePin: 1,
         //add extra space to scroll to the end of the last card
-        end: () => "+=" + document.querySelector('#horizontal').offsetWidth,
+        end: () => "+=" + document.querySelector('#horizontal'),
 
     },
     ease: "none",
-});
+});*/
 
 
 
@@ -32,7 +33,7 @@ function initHeroCanvas() {
     const SPAWN_Z_MIN = MAX_DEPTH * 0.25;
     const SPAWN_Z_MAX = MAX_DEPTH * 0.45;
     const FOV = 400;
-    const speedMultiplier = 0.9; // (e.g. 0.05 very slow, 0.5 fast)
+    const speedMultiplier = 0.9;
     let isPressing = false;
 
     const mouse = {
@@ -45,6 +46,7 @@ function initHeroCanvas() {
         const rect = canvas.getBoundingClientRect();
         width = canvas.width = rect.width;
         height = canvas.height = rect.height;
+
     }
     window.addEventListener('resize', resize);
     resize();
@@ -123,6 +125,8 @@ function initHeroCanvas() {
             ctx.fill();
             ctx.globalAlpha = 1;
             ctx.restore();
+
+
 
             // If particle flies off screen edges → reset
             if (this.isOutOfBounds()) {
@@ -278,15 +282,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-// TODO : Add scroll-based parallax to particles
 const gallery = document.querySelector('.gallery');
 const galleryimages = document.querySelectorAll('.gallery img');
 const img_angle = 360 / gallery.children.length;
 
+// Attach transition listeners to the gallery (transform is applied to the gallery, not the individual images)
+const projectBtn = document.querySelector('.projects-btn');
+if (gallery) {
+    gallery.addEventListener('transitionstart', () => {
+        if (projectBtn) projectBtn.style.visibility = 'hidden';
+    });
+
+    gallery.addEventListener('transitionend', () => {
+        if (projectBtn) projectBtn.style.visibility = 'visible';
+    });
+}
+
+// Redirect the projects button to projects.html when clicked
+if (projectBtn) {
+    projectBtn.addEventListener('click', () => {
+        // adjust path if your projects page is in a different folder
+        window.location.href = 'projects.html';
+    });
+}
+
+
 galleryimages.forEach((img, i) => {
 
-    img.style.transform = `rotateX(0deg) rotateY(${(i + 1) * img_angle}deg) translateZ(${gallery.children.length * 6}rem)`;
+    img.style.transform = `rotateX(0deg) rotateY(${(i + 1) * img_angle}deg) translateZ(${gallery.children.length * 6}vw)`;
+
     img.onclick = () => {
-        gallery.style.transform = `perspective(1500px)  rotateX(-15deg) rotateY(-${(i + 1) * img_angle}deg)`;
+        // hide the projects button while the gallery is animating
+        const button = document.querySelector('.projects-btn');
+        if (button) button.style.visibility = 'hidden';
+        gallery.style.transform = `perspective(2000px)  rotateX(-5deg) rotateY(-${(i + 1) * img_angle}deg)`;
     }
 });
