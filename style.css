@@ -5,14 +5,23 @@
     padding: 0;
 }
 
+:root {
+    /* change this value to adjust the navbar height; hero will adapt automatically */
+    --nav-height: 7vh;
+    --hero-height: 100vh;
+    --hero-color: #0c0720;
+    --particles-canvas-height: 85vh;
+}
+
 html,
 body {
     margin: 0;
     padding: 0;
-    height: 100%;
+
     font-family: 'Manrope', 'Comfortaa', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     color: #e6e6e6;
-      background-color: var(--hero-color);
+    background-color: var(--hero-color);
+   
 }
 
 h1,
@@ -40,12 +49,6 @@ h6 {
     -webkit-backdrop-filter: blur(5px);
 }
 
-:root {
-    /* change this value to adjust the navbar height; hero will adapt automatically */
-    --nav-height: 60px;
-    --hero-height: 100vh;
-    --hero-color: #0c0720;
-}
 
 .nav-inner {
 
@@ -92,7 +95,7 @@ h6 {
 /* HERO / CARD */
 .hero {
     /*height 80% of the window*/
-    height: var(--hero-height);
+    height: var(--particles-canvas-height);
     position: relative;
     overflow: hidden;
     background: var(--hero-color)
@@ -106,7 +109,7 @@ h6 {
 
 .hero-card {
     /* calculate remaining viewport height dynamically based on --nav-height if needed */
-    min-height: calc(var(--hero-height) - var(--nav-height));
+    min-height: calc(var(--particles-canvas-height) - var(--nav-height));
     display: flex;
     flex-direction: column;
     /* stack children vertically */
@@ -181,14 +184,25 @@ h6 {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: var(--particles-canvas-height);
     z-index: 1;
 }
 
-
+#projects-header h2 {
+    font-family: 'Manrope';
+    margin: 4rem 0 0 0;
+    padding-top: 1.7rem;
+    font-size: 40px;
+    font-weight: 300;
+    text-align: center;
+    color: #ffc800;
+  
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+}
 
 .projects-section {
-    margin: 80px 50px;
+    margin: -60px 50px;
 
 }
 
@@ -227,22 +241,25 @@ h6 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    /* let the container height flow with its content so the button can sit directly beneath the gallery */
+    height: auto;
     z-index: 2;
-    
 }
 
 .gallery {
+    position: relative;
+    /* keep gallery visually above the normal flow but avoid large negative offsets
+        so the following button sits close under it */
+    top: 0px;
+    width: 40vw;
+    max-width: 40vw;
+    /* ensure the gallery reserves vertical space because its children are absolutely positioned */
+    height: 40vw;
+    transform-style: preserve-3d;
+    transform: perspective(2000px) rotateX(-5deg) rotateY(0deg);
+    transition: 4s;
+    margin-bottom: 68px; /* small gap between gallery and the projects button */
     
-   position: relative;
-   top: -30%;
-   width: 40vw;
-   max-width: 40vw;
-   transform-style: preserve-3d;
-   transform: perspective(2000px) rotateX(-5deg) rotateY(0deg);
-
-   /*animation: circular-rotate 28s linear infinite;*/
-   transition: 4s;
 }
 
 @keyframes circular-rotate {
@@ -256,6 +273,10 @@ h6 {
 .gallery img {
     position: absolute;
     width: 100%;
+    /* center images within the gallery - JS will add 3D transforms after this translation */
+    left: 50%;
+    top: 50%;
+    transform-origin: center center;
     /*transform: rotate3d(0,1,0, calc(var(--img_no) * 60deg)) translateZ(25rem);*/ 
     background-color: white;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -270,7 +291,8 @@ h6 {
 
 .projects-btn {
     display: block;
-    margin: 0px auto 30px auto;
+    /* small top margin so the button sits just below the gallery */
+    margin: 16px auto 100px auto;
     height: auto;
     padding: 12px 24px;
     font-size: 16px;
@@ -297,4 +319,64 @@ h6 {
     display: block;
     text-align: center;
     margin-top: 60px;
+}
+
+
+
+.background-content {
+    position: relative;
+    /* allow content to size naturally so sections below the hero are scrollable */
+    min-height: auto;
+    background-image: url("/images/static-background.png");
+    background-repeat: repeat;
+    background-size: cover;
+    width: 100vw;
+    z-index: 1;
+    margin-top: -7vh; /* overlap slightly with hero to avoid gaps */
+}
+
+
+/* horizontal transition line going from left to right as I scroll down */
+#line {
+    position: absolute;
+    top: var(--particles-canvas-height);
+    left: 0;
+    height: 6px; /* thicker tail */
+    width: 98vw; /* full width, we animate scaleX for smooth GPU-driven animation */
+    /* subtle gradient for the tail (faint at the start, brighter near the head) */
+    /* gradient is inverted so the visible tip (the head) appears brightest when the element is scaled from left */
+    background: linear-gradient(90deg, rgba(255,234,5,0) 0%, rgba(255,234,5,0.05) 20%, rgba(255,234,5,0.25) 45%, rgba(255,234,5,0.6) 75%, rgba(255,234,5,0.95) 100%);
+    z-index: 3;
+    /* use transform for smooth, GPU-accelerated animation driven by GSAP */
+    transform-origin: left center;
+    border-radius: 13px;
+    /* start collapsed horizontally; scaleY=1 so height is normal initially */
+    transform: scaleX(0) scaleY(1);
+    filter: blur(0.6px);
+    pointer-events: none;
+}
+
+/* remove separate head element; keep only the glowing, rounded tail */
+/* the head element was removed per user preference */
+
+/* additional soft blurred glow behind the head for a comet tail bloom */
+#line::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 20px;
+    /* bloom stronger near the right and fade to transparent at left */
+    background: linear-gradient(90deg, rgba(255,234,5,0) 0%, rgba(255,234,5,0.08) 30%, rgba(255,234,5,0.25) 60%, rgba(255,234,5,0.85) 95%);
+    filter: blur(10px);
+    opacity: 1;
+    pointer-events: none;
+    z-index: -1; /* behind the main tail */
+}
+
+/* strengthen outer glow of the tail so the right side appears brighter when scaled */
+#line {
+    box-shadow: 5px 0 18px rgba(255,234,5,0.12), 5px 0 40px rgba(255,234,5,0.06) inset;
 }

@@ -306,10 +306,26 @@ if (projectBtn) {
     });
 }
 
+const line = document.getElementById('line');
+function updateScrollProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight;
+    const winHeight = window.innerHeight;
+    const scrollable = docHeight - winHeight;
+    const progress = scrollable > 0 ? scrollTop / scrollable : 0;
+    const clamped = Math.min(Math.max(progress, 0), 1);
+    line.style.transform = `scaleX(${clamped}) scaleY(1.45)`;
+}
+window.addEventListener('scroll', updateScrollProgress);
+window.addEventListener('resize', updateScrollProgress);
+updateScrollProgress();
+
+
 
 galleryimages.forEach((img, i) => {
 
-    img.style.transform = `rotateX(0deg) rotateY(${(i + 1) * img_angle}deg) translateZ(${gallery.children.length * 6}vw)`;
+    // include a centering translate so images are centered in the .gallery before 3D transforms
+    img.style.transform = `translate(-50%,-30%) rotateX(0deg) rotateY(${(i + 1) * img_angle}deg) translateZ(${gallery.children.length * 6}vw)`;
 
     img.onclick = () => {
         // hide the projects button while the gallery is animating
