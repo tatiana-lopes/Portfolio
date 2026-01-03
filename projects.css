@@ -1,0 +1,122 @@
+:root{
+    --bg: #0c0625;
+    --text-main: #f5efe0;
+    --text-muted: rgba(249, 224, 159, 0.862);
+    --line: rgba(217, 214, 25, 0.557);
+    --accent: #ffea05;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text-main);
+    font-family: 'Lato', sans-serif;
+    height: 100%;
+}
+
+#background-content-2 {
+    background-image: url("images/static-background.png");
+    background-repeat: repeat;
+    background-size: cover;
+    width: 100vw;
+}
+
+.projects-page{
+    padding: 120px 8vw;
+}
+
+.projects-title-list {
+    font-family: 'Comfortaa';
+    font-size: 42px;
+    margin: 40px 0 40px 0;
+    color: rgb(255, 255, 255);
+}
+
+.projects-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+    margin: auto;
+}
+
+/* PROJECT LIST */
+
+.projects-list{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.project-item{
+    border-top: 1px solid var(--line);
+}
+
+.project-item:last-child{
+    border-bottom: 1px solid var(--line);
+}
+
+.project-item a{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 32px 0;
+    text-decoration:none;
+    color: inherit;
+    transition: opacity 0.3s ease;
+}
+
+.project-item:hover a{
+    opacity: 0.9;
+}
+
+.project-name{
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.project-category{
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+}
+
+/* PREVIEW */
+
+.project-preview{
+    position: sticky;
+    top: 120px;
+    width: 50vw;
+    height: 50vh;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(223, 184, 10, 0.841);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.project-preview img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    filter: brightness(0.95);
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 900px){
+    .projects-wrapper{
+        grid-template-columns: 1fr;
+    }
+
+    .project-preview{
+        display:none;
+    }
+}

@@ -307,15 +307,15 @@ if (gallery) {
     });
 }
 
-// Redirect the projects button to projects.html when clicked.
-// If a project has been selected in the gallery, navigate to that anchor.
+// Redirect the projects button to an individual project page when clicked.
+// If a project has been selected in the gallery, navigate to `projects/<id>.html`.
 if (projectBtn) {
     projectBtn.addEventListener('click', () => {
-        // if a project was selected via gallery click, use its id as anchor
         if (currentSelectedProject) {
-            window.location.href = `projects.html#${currentSelectedProject}`;
+            // navigate to the project-specific page inside the projects/ folder
+            window.location.href = `projects/${currentSelectedProject}.html`;
         } else {
-            // fallback to the projects page root
+            // fallback to the projects list page
             window.location.href = 'projects.html';
         }
     });

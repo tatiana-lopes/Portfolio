@@ -1,53 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="stylesheet" href="style.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="projects.css">
 </head>
 <body>
-   
-    <header>
-       <nav class="site-nav">
-            <div class="nav-inner">
-                <ul class="nav-center">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="projects.html">Projects</a></li>
+    <nav class="site-nav">
+        <div class="nav-inner">
+            <ul class="nav-center">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+            </ul>
+
+            <a class="contact-btn" href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <main class="projects-page">
+        <div class="background-content" id="background-content-2">
+            <h1 class="projects-title-list">Projects</h1>
+
+            <div class="projects-wrapper">
+
+                <!-- Project list -->
+                <ul class="projects-list">
+
+                    <li class="project-item" data-image="images/website-all-the-tiles.png">
+                        <a href="projects/website-all-the-tiles.html">
+                            <span class="project-name">All The Tiles</span>
+                            <span class="project-category">UI / UX · Web</span>
+                        </a>
+                    </li>
+
+                    <li class="project-item" data-image="images/website-alta-baixa.png">
+                        <a href="projects/website-alta-baixa.html">
+                            <span class="project-name">Alta Baixa</span>
+                            <span class="project-category">UI / UX · Web</span>
+                        </a>
+                    </li>
+
+                    <li class="project-item" data-image="images/website-astronomy.png">
+                        <a href="projects/website-astronomy.html">
+                            <span class="project-name">NASA Pictures</span>
+                            <span class="project-category">Web</span>
+                        </a>
+                    </li>
+
+                    <li class="project-item" data-image="images/website-personal-website.png">
+                        <a href="projects/website-personal-website.html">
+                            <span class="project-name">Personal Website</span>
+                            <span class="project-category">Web</span>
+                        </a>
+                    </li>
+
+                    <li class="project-item" data-image="images/website-roomiematch.png">
+                        <a href="projects/website-roomiematch.html">
+                            <span class="project-name">RoomieMatch</span>
+                            <span class="project-category">UI / UX · Design</span>
+                        </a>
+                    </li>
+
                 </ul>
 
-                <a class="contact-btn" href="#contact">Contact</a>
+                <!-- Hover preview -->
+               
+                <div class="project-preview">
+                    <img src="" alt="">
+                </div>
+
             </div>
-        </nav>
-        </header>
-        <!-- <div class="background-content">-->
-        <section class="projects-info">
-        <h1>My Projects</h1>
-        <p>Welcome to the projects page! Here you can find detailed information about my projects.</p>
-        <div id="horizontal">
-            <div class="project-card">
-                <img src="/images/website-alta-baixa.png" alt="website-alta-baixa">
-            </div>
-            <div class="project-card">
-                <img src="/images/website-all-the-tiles.png" alt="website-all-the-tiles">
-            </div>
-               <div class="project-card">
-                <img src="/images/website-personal-website.png" alt="website-personal-website">
-            </div>
-            <div class="project-card">
-                <img src="/images/website-astronomy.png" alt="website-astronomy">
-            </div>
-            <div class="project-card">
-                <img src="/images/website-personal-website.png" alt="website-personal-website">
-            </div>
-         
         </div>
+    </main>
 
-
-
-        </section>
-    <!--</div>-->
-  
+    <script src="projects.js"></script>
 </body>
 </html>
