@@ -22,11 +22,9 @@ html,
 body {
     margin: 0;
     padding: 0;
-
     font-family: 'Manrope', 'Comfortaa', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     color: #e6e6e6;
     background-color: var(--hero-color);
-   
 }
 
 h1,
@@ -95,6 +93,19 @@ h6 {
     /* rounded rectangle */
     font-weight: 400;
     font-size: 12px;
+}
+
+/* enforce consistent navbar sizing across pages even if fonts load differently */
+.site-nav .nav-center a,
+.site-nav .contact-btn {
+    line-height: 1.2;
+}
+.site-nav .nav-center a {
+    font-size: 16px !important;
+}
+.site-nav .contact-btn {
+    font-size: 12px !important;
+    padding: 10px 20px !important;
 }
 
 /* HERO / CARD */
