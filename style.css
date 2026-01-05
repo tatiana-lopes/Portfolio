@@ -42,6 +42,14 @@ body {
     margin-top: -7vh; /* overlap slightly with hero to avoid gaps */
 }
 
+a {
+    color: var(--text-main);
+    text-decoration: none;
+}
+
+a:hover {
+    color: orange;
+}
 
 h1,
 h2,
