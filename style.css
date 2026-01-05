@@ -27,6 +27,22 @@ body {
     background-color: var(--hero-color);
 }
 
+.background-content {
+    position: relative;
+    /* allow content to size naturally so sections below the hero are scrollable */
+    /* give the background area some height so the image can be seen
+       (was 'auto' which left the empty div with zero height) */
+    min-height: 90vh;
+    /* use a relative path so it resolves correctly whether opened from file:// or a server */
+    background-image: url("images/static-background.png");
+    background-repeat: repeat;
+    background-size: cover;
+    width: 100vw;
+    z-index: 1;
+    margin-top: -7vh; /* overlap slightly with hero to avoid gaps */
+}
+
+
 h1,
 h2,
 h3,
@@ -337,20 +353,6 @@ h6 {
 
 
 
-.background-content {
-    position: relative;
-    /* allow content to size naturally so sections below the hero are scrollable */
-    /* give the background area some height so the image can be seen
-       (was 'auto' which left the empty div with zero height) */
-    min-height: 60vh;
-    /* use a relative path so it resolves correctly whether opened from file:// or a server */
-    background-image: url("images/static-background.png");
-    background-repeat: repeat;
-    background-size: cover;
-    width: 100vw;
-    z-index: 1;
-    margin-top: -7vh; /* overlap slightly with hero to avoid gaps */
-}
 
 
 

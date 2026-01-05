@@ -11,23 +11,24 @@
 }
 
 body{
-    margin:0;
     background: var(--bg);
     color: var(--text-main);
-
     height: 100%;
 }
 
 
 
 .projects-page{
-    padding: 120px 8vw;
+  margin: auto;
+  text-align: center;
+  width: 90%;
+
 }
 
 .projects-title-list {
     font-family: 'Comfortaa';
     font-size: 42px;
-    margin: 40px 0 40px 0;
+    margin: calc(var(--nav-height) + 10vh) 0 60px;
     color: rgb(255, 255, 255);
 }
 
@@ -66,7 +67,8 @@ body{
 }
 
 .project-item:hover a{
-    opacity: 0.9;
+   
+    color: var(--accent);
 }
 
 .project-name{
@@ -84,21 +86,18 @@ body{
 /* PREVIEW */
 
 .project-preview{
-    position: sticky;
-    top: 120px;
-    width: 50vw;
-    height: 50vh;
-    border-radius: 16px;
+  margin: auto;
+  
+ 
     overflow: hidden;
-    background: rgba(223, 184, 10, 0.841);
     opacity: 0;
-    transform: translateY(20px);
     transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
+
+
 .project-preview img{
     width:100%;
-    height:100%;
     object-fit: fill;
     filter: brightness(0.95);
 }
