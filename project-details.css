@@ -1,5 +1,6 @@
 main {
-    margin: calc(var(--nav-height) + 24px) auto 0px;
+    /* keep nav offset but convert the px fallback to rem */
+    margin: calc(var(--nav-height) + 1.5rem) auto 0px; /* 24px */
     max-width: 70vw;
 }
 
@@ -22,9 +23,8 @@ main {
 
 
 .project-image {
-    margin: 20px 0px;
+    margin: 1.25rem 0; /* 20px */
     text-align: center;
-  
 }
 
 .project-image img {
@@ -35,16 +35,16 @@ main {
 
 .project-image h2 {
     font-family: 'Manrope';
-    font-size: 28px;
+    font-size: 1.75rem; /* 28px */
     font-weight: 400;
-    margin: 40px 0 20px 0;
+    margin: 2.5rem 0 1.25rem 0; /* 40px 0 20px 0 */
     color: #e6e6e6;
 }
 
 h1 {
-    font-size: 36px;
+    font-size: 2.25rem; /* 36px */
     font-weight: 500;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     color: #F6BF1F;
 }
 
@@ -55,16 +55,16 @@ video {
 
 .website-link {
     font-family: 'Manrope';
-    font-size: 18px;
+    font-size: 1.125rem; /* 18px */
     font-weight: 300;
-    margin-bottom: 40px;
+    margin-bottom: 2.5rem; /* 40px */
 }
 
 p {
     font-family: 'Manrope';
-    font-size: 18px;
+    font-size: 1.125rem; /* 18px */
     line-height: 1.6;
     color: #e6e6e6;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin-top: 0.625rem; /* 10px */
+    margin-bottom: 1.25rem; /* 20px */
 }

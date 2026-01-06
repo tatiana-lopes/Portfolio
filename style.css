@@ -10,7 +10,7 @@
     --nav-height: 7vh;
     --hero-height: 100vh;
     --hero-color: #0c0720;
-    --particles-canvas-height: 85vh;
+    --particles-canvas-height: 90vh;
       --bg: #0b0d18;
     --line: rgba(255, 234, 5, 0.18);
     --text-main: #f5efe0;
@@ -53,7 +53,7 @@ a {
 }
 
 a:hover {
-    color: orange;
+    color: #ffc105;
 }
 
 h1,
@@ -110,6 +110,10 @@ h6 {
     font-size: 1rem; /* 16px */
 }
 
+.nav-center a:hover {
+    color: #ffc105;
+}
+
 .contact-btn {
     margin-left: auto;
     /* keeps it on the right */
@@ -130,11 +134,11 @@ h6 {
     line-height: 1.2;
 }
 .site-nav .nav-center a {
-    font-size: 1rem !important;
+    font-size: 1rem;
 }
 .site-nav .contact-btn {
-    font-size: 0.75rem !important;
-    padding: 0.625rem 1.25rem !important;
+    font-size: 0.75rem;
+    padding: 0.625rem 1.25rem;
 }
 
 /* HERO / CARD */
@@ -147,10 +151,10 @@ h6 {
         /* near-black, softer than pure black */
 }
 
-/* push hero content down so it's not covered by the fixed navbar */
-.hero {
-    padding-top: var(--nav-height);
+#hero-about {
+    height: 100vh;
 }
+
 
 .hero-card {
     /* calculate remaining viewport height dynamically based on --nav-height if needed */
@@ -161,6 +165,7 @@ h6 {
     align-items: center;
     justify-content: center;
     padding: 1rem;
+    margin: 2rem 2rem;
     position: relative;
     z-index: 2;
     background: transparent;
@@ -228,7 +233,7 @@ h6 {
     }
 }
 
-#particle-canvas {
+.particle-canvas {
     position: absolute;
     top: 0;
     left: 0;
@@ -237,11 +242,12 @@ h6 {
     z-index: 1;
 }
 
+
 #projects-header h2 {
     font-family: 'Manrope';
-    margin: 4rem 0 4rem 0;
+    margin: 4rem 0 1rem 0;
     padding-top: 1.7rem;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 300;
     text-align: center;
     color: #e6e6e6;
@@ -250,8 +256,7 @@ h6 {
 }
 
 .projects-section {
-    margin: -60px 50px;
-
+    margin: -3.5rem 2rem;
 }
 
 #horizontal {
@@ -339,7 +344,7 @@ h6 {
 .projects-btn {
     display: block;
     /* small top margin so the button sits just below the gallery */
-    margin: 1rem auto 6.25rem auto; /* ~16px top, 100px bottom */
+    margin: 1rem auto 2.25rem auto; /* ~16px top, 100px bottom */
     height: auto;
     padding: 0.75rem 1.5rem; /* 12px 24px */
     font-size: 1rem;
@@ -353,12 +358,12 @@ h6 {
 }
 
 .projects-btn:hover {
-    background-color: #e6e6e6;
+    background-color: #ffc105;
     color: #0c0720;
 }
 
 .contact-btn:hover {
-    background-color: #e6e6e6;
+    background-color: #ffc105;
     color: #0c0720;
 }
 
@@ -367,10 +372,6 @@ h6 {
     text-align: center;
     margin-top: 60px;
 }
-
-
-
-
 
 
 /* horizontal transition line going from left to right as I scroll down */
@@ -435,3 +436,5 @@ h6 {
     /* responsive paragraph sizing (use rem units so it scales with html font-size) */
     font-size: 1.125rem; /* 18px */
 }
+
+
