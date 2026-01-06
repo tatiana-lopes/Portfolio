@@ -408,3 +408,19 @@ h6 {
 #line {
     box-shadow: 5px 0 18px rgba(255,234,5,0.12), 5px 0 40px rgba(255,234,5,0.06) inset;
 }
+
+.about {
+    margin: 80px auto;
+    max-width: 800px;
+    font-family: 'Manrope';
+    font-size: 20px;
+    line-height: 1.6;
+    color: #e6e6e6;
+    background-color: var(--hero-color);
+    padding: 40px;
+}
+
+.about p {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
