@@ -1,23 +1,3 @@
-/*
-gsap.registerPlugin(ScrollTrigger);
-const projectCards = gsap.utils.toArray('#horizontal .project-card');
-
-gsap.to(projectCards, {
-    xPercent: -100 * (projectCards.length - 1),
-    scrollTrigger: {
-        trigger: '#horizontal',
-        scrub: true,
-        pin: true,
-        anticipatePin: 1,
-        //add extra space to scroll to the end of the last card
-        end: () => "+=" + document.querySelector('#horizontal'),
-
-    },
-    ease: "none",
-});*/
-
-
-
 // ==========================
 // HERO CANVAS BACKGROUND
 // ==========================
@@ -272,14 +252,11 @@ function initHeroCanvas() {
 }
 
 
-
 // ==========================
 // INIT
 // ==========================
 document.addEventListener('DOMContentLoaded', () => {
     initHeroCanvas();
-
-
 });
 
 
@@ -338,8 +315,34 @@ galleryimages.forEach((img, i) => {
     img.style.transform = `translate(-50%,-30%) rotateX(0deg) rotateY(${(i + 1) * img_angle}deg) translateZ(${gallery.children.length * 6}vw)`;
 
     img.onclick = (e) => {
-        // hide the projects button while the gallery is animating
+        // If clicked image is already front-facing, don't hide the button or
+        // trigger another rotation; just select it.
         const button = document.querySelector('.projects-btn');
+        try {
+            const galleryRot = typeof getGalleryRotationYDeg === 'function' ? getGalleryRotationYDeg() : 0;
+            let bestIdx = 0;
+            let bestDiff = 360;
+            galleryimages.forEach((_, idx) => {
+                const assigned = (idx + 1) * img_angle;
+                const diff = normalizeDeg(assigned - galleryRot);
+                if (Math.abs(diff) < Math.abs(bestDiff)) {
+                    bestDiff = diff;
+                    bestIdx = idx;
+                }
+            });
+
+            if (i === bestIdx) {
+                // already front-facing: only set selection and ensure button visible
+                currentSelectedProject = projectId;
+                if (button) button.style.visibility = 'visible';
+                return;
+            }
+        } catch (err) {
+            console.warn('Error detecting front image', err);
+            // fall back to rotating
+        }
+
+        // hide the projects button while the gallery is animating
         if (button) button.style.visibility = 'hidden';
 
         // rotate the gallery visually toward the clicked image
