@@ -16,20 +16,25 @@ body{
     height: 100%;
 }
 
-
+.background-content{
+    min-height: 90vh;
+}
 
 .projects-page{
-  margin: auto;
-  text-align: center;
-  width: 90%;
-
+    /* center page content and constrain width so children can center properly */
+    max-width: 80vw;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.375rem; /* 22px */
 }
+
 
 .projects-title-list {
     font-family: 'Comfortaa';
     font-size: 42px;
     margin: calc(var(--nav-height) + 10vh) 0 60px;
     color: rgb(255, 255, 255);
+    text-align: center; /* explicit center for the title */
 }
 
 .projects-wrapper{
@@ -37,7 +42,8 @@ body{
     grid-template-columns: 1fr 2fr;
     gap: 80px;
     align-items: start;
-    margin: auto;
+    /* constrain wrapper width so margin:auto centers it within .projects-page */
+
 }
 
 /* PROJECT LIST */

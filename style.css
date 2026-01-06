@@ -16,6 +16,13 @@
     --text-main: #f5efe0;
     --text-muted: rgba(245, 239, 224, 0.6);
     --glow: rgba(255, 234, 5, 0.35);
+    --base-font-size: 16px;
+}
+
+/* base font-sizing: use rem units elsewhere; reduce on small screens */
+html { font-size: var(--base-font-size); }
+@media (max-width: 600px) {
+    html { font-size: 14px; }
 }
 
 html,
@@ -30,9 +37,7 @@ body {
 .background-content {
     position: relative;
     /* allow content to size naturally so sections below the hero are scrollable */
-    /* give the background area some height so the image can be seen
-       (was 'auto' which left the empty div with zero height) */
-    min-height: 90vh;
+
     /* use a relative path so it resolves correctly whether opened from file:// or a server */
     background-image: url("images/static-background.png");
     background-repeat: repeat;
@@ -102,7 +107,7 @@ h6 {
     text-decoration: none;
     color: #e6e6e6;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1rem; /* 16px */
 }
 
 .contact-btn {
@@ -112,11 +117,11 @@ h6 {
     border-width: 1px;
     color: #e6e6e6;
     text-decoration: none;
-    padding: 10px 20px;
+    padding: 0.625rem 1.25rem; /* 10px 20px */
     border-radius: 22px;
     /* rounded rectangle */
     font-weight: 400;
-    font-size: 12px;
+    font-size: 0.75rem; /* 12px */
 }
 
 /* enforce consistent navbar sizing across pages even if fonts load differently */
@@ -125,11 +130,11 @@ h6 {
     line-height: 1.2;
 }
 .site-nav .nav-center a {
-    font-size: 16px !important;
+    font-size: 1rem !important;
 }
 .site-nav .contact-btn {
-    font-size: 12px !important;
-    padding: 10px 20px !important;
+    font-size: 0.75rem !important;
+    padding: 0.625rem 1.25rem !important;
 }
 
 /* HERO / CARD */
@@ -155,7 +160,7 @@ h6 {
     /* stack children vertically */
     align-items: center;
     justify-content: center;
-    padding: 40px;
+    padding: 1rem;
     position: relative;
     z-index: 2;
     background: transparent;
@@ -177,7 +182,7 @@ h6 {
 }
 
 .hero-text h1 {
-    font-size: 40px;
+    font-size: 2.5rem; /* 40px */
     /* smaller subheading */
     margin: 0;
     font-weight: 600;
@@ -188,7 +193,7 @@ h6 {
 }
 
 .hero-text h2 {
-    font-size: 30px;
+    font-size: 1.875rem; /* 30px */
     font-weight: 300;
     margin: 0;
     text-align: center;
@@ -198,7 +203,7 @@ h6 {
 
 .projects-section h2 {
     font-family: 'Manrope';
-    font-size: 40px;
+    font-size: 2.5rem;
     font-weight: 300;
     text-align: left;
     max-width: 800px;
@@ -217,6 +222,10 @@ h6 {
         padding: 10px 14px;
         font-size: 14px
     }
+    /* reduce paragraph font-size on small screens for better fit */
+    .about p {
+        font-size: 0.9375rem; /* 15px */
+    }
 }
 
 #particle-canvas {
@@ -230,9 +239,9 @@ h6 {
 
 #projects-header h2 {
     font-family: 'Manrope';
-    margin: 4rem 0 0 0;
+    margin: 4rem 0 4rem 0;
     padding-top: 1.7rem;
-    font-size: 40px;
+    font-size: 2.5rem;
     font-weight: 300;
     text-align: center;
     color: #e6e6e6;
@@ -253,8 +262,8 @@ h6 {
 
 .projects-title {
     text-align: center;
-    font-size: 70px;
-    margin-bottom: 40px;
+    font-size: 4.375rem; /* 70px */
+    margin-bottom: 2.5rem; /* ~40px */
     color: #0c0720;
 }
 
@@ -330,10 +339,10 @@ h6 {
 .projects-btn {
     display: block;
     /* small top margin so the button sits just below the gallery */
-    margin: 16px auto 100px auto;
+    margin: 1rem auto 6.25rem auto; /* ~16px top, 100px bottom */
     height: auto;
-    padding: 12px 24px;
-    font-size: 16px;
+    padding: 0.75rem 1.5rem; /* 12px 24px */
+    font-size: 1rem;
     color: #e6e6e6;
     background-color: rgba(12, 7, 32, 0.8);
     border: 2px solid #e6e6e6;
@@ -410,10 +419,10 @@ h6 {
 }
 
 .about {
-    margin: 80px auto;
+    margin: 2rem auto;
     max-width: 800px;
     font-family: 'Manrope';
-    font-size: 20px;
+    font-size: 1.25rem; /* 20px */
     line-height: 1.6;
     color: #e6e6e6;
     background-color: var(--hero-color);
@@ -421,6 +430,8 @@ h6 {
 }
 
 .about p {
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    /* responsive paragraph sizing (use rem units so it scales with html font-size) */
+    font-size: 1.125rem; /* 18px */
 }
