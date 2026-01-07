@@ -264,6 +264,27 @@ const gallery = document.querySelector('.gallery');
 const galleryimages = document.querySelectorAll('.gallery img');
 const img_angle = 360 / gallery.children.length;
 
+// helper to compute which image index is currently front-facing
+function getFrontIndex() {
+    if (!gallery || !galleryimages || galleryimages.length === 0) return 0;
+    try {
+        const galleryRot = typeof getGalleryRotationYDeg === 'function' ? getGalleryRotationYDeg() : 0;
+        let bestIdx = 0;
+        let bestDiff = 360;
+        galleryimages.forEach((_, idx) => {
+            const assigned = (idx + 1) * img_angle;
+            const diff = normalizeDeg(assigned - galleryRot);
+            if (Math.abs(diff) < Math.abs(bestDiff)) {
+                bestDiff = diff;
+                bestIdx = idx;
+            }
+        });
+        return bestIdx;
+    } catch (e) {
+        return 0;
+    }
+}
+
 
 const projectBtn = document.querySelector('.projects-btn');
 // track which project is currently selected in the gallery
@@ -314,6 +335,31 @@ galleryimages.forEach((img, i) => {
     // include a centering translate so images are centered in the .gallery before 3D transforms
     img.style.transform = `translate(-50%,-30%) rotateX(0deg) rotateY(${(i + 1) * img_angle}deg) translateZ(${gallery.children.length * 6}vw)`;
 
+    // hover: only apply highlight/shadow when this image is the front-facing one
+    img.onmouseenter = () => {
+        try {
+            const frontIdx = getFrontIndex();
+            if (i === frontIdx) {
+           
+                img.style.boxShadow = '0 4px 12px rgba(255, 234, 0, 0.899)';
+            } else {
+                // explicitly clear any CSS hover shadow for non-front images
+          
+                img.style.boxShadow = 'none';
+            }
+        } catch (err) {
+            // fallback: do not apply special styling if detection fails
+            img.style.boxShadow = '';
+        }
+    };
+
+    img.onmouseleave = () => {
+        // always clear inline styles on leave so CSS baseline applies normally
+    
+        img.style.boxShadow = '';
+    };
+ 
+
     img.onclick = (e) => {
         // If clicked image is already front-facing, don't hide the button or
         // trigger another rotation; just select it.
@@ -333,6 +379,9 @@ galleryimages.forEach((img, i) => {
 
             if (i === bestIdx) {
                 // already front-facing: only set selection and ensure button visible
+                // redirect to the project page
+                 window.location.href = `projects/${projectId}.html`;
+                
                 currentSelectedProject = projectId;
                 if (button) button.style.visibility = 'visible';
                 return;
@@ -346,7 +395,7 @@ galleryimages.forEach((img, i) => {
         if (button) button.style.visibility = 'hidden';
 
         // rotate the gallery visually toward the clicked image
-        gallery.style.transform = `perspective(2000px)  rotateX(-5deg) rotateY(-${(i + 1) * img_angle}deg)`;
+        gallery.style.transform = `perspective(4000px)  rotateX(-5deg) rotateY(-${(i + 1) * img_angle}deg)`;
 
         // record the selected project id so the View Project button can
         // navigate to the correct anchor. Do not redirect immediately; the
@@ -399,7 +448,7 @@ try {
         if (pid) {
             currentSelectedProject = pid;
             // rotate gallery to align exactly to that image (keeps UI consistent)
-            gallery.style.transform = `perspective(2000px)  rotateX(-5deg) rotateY(-${(bestIdx + 1) * img_angle}deg)`;
+            gallery.style.transform = `perspective(4000px)  rotateX(-5deg) rotateY(-${(bestIdx + 1) * img_angle}deg)`;
             if (projectBtn) projectBtn.style.visibility = 'visible';
         }
     }
